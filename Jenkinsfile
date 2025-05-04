@@ -49,7 +49,7 @@ pipeline {
     post {
         always {
             // Clean up unused Docker resources
-            sh "/usr/local/bin/docker system prune -f"
+            //sh "/usr/local/bin/docker system prune -f"
         }
     }
 }
