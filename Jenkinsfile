@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     // Create the Docker network if it doesn't exist
-                    sh "/usr/local/bin/docker network inspect ${DOCKER_NETWORK} || /usr/local/bin/docker network create ${DOCKER_NETWORK}"
+                    //sh "/usr/local/bin/docker network inspect ${DOCKER_NETWORK} || /usr/local/bin/docker network create ${DOCKER_NETWORK}"
                 }
             }
         }
