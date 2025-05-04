@@ -5,6 +5,7 @@ pipeline {
         IMAGE_NAME = 'favorites-node'
         CONTAINER_NAME = 'favorites-cont'
         DOCKER_NETWORK = 'favorites-net'
+        PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
     }
 
     stages {
@@ -19,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    sh "docker build -t ${IMAGE_NAME} ."
+                    sh "/usr/local/bin/docker build -t ${IMAGE_NAME} ."
                 }
             }
         }
@@ -28,7 +29,7 @@ pipeline {
             steps {
                 script {
                     // Create the Docker network if it doesn't exist
-                    sh "docker network inspect ${DOCKER_NETWORK} || docker network create ${DOCKER_NETWORK}"
+                    sh "/usr/local/bin/docker network inspect ${DOCKER_NETWORK} || /usr/local/bin/docker network create ${DOCKER_NETWORK}"
                 }
             }
         }
@@ -39,7 +40,7 @@ pipeline {
             steps {
                 script {
                     // Run the application container
-                    sh "docker run --name ${CONTAINER_NAME} -d --rm -p 3003:3000 --network ${DOCKER_NETWORK} ${IMAGE_NAME}"
+                    sh "/usr/local/bin/docker run --name ${CONTAINER_NAME} -d --rm -p 3003:3000 --network ${DOCKER_NETWORK} ${IMAGE_NAME}"
                 }
             }
         }
@@ -48,7 +49,7 @@ pipeline {
     post {
         always {
             // Clean up unused Docker resources
-            sh "docker system prune -f"
+            sh "/usr/local/bin/docker system prune -f"
         }
     }
 }
